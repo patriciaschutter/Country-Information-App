@@ -1,20 +1,17 @@
+var fs = require('fs')
 
-let fs = require('fs')
+function readFile(filename, cb){
+	fs.readFile(filename, function(err,data){
+		if (err){
+			throw err
+		}
+		parsedData = JSON.parse(data)
+		cb(parsedData)
+	})
+}
 
 
 module.exports = {
-    countryInfo: function countryDetails(filename, country) {
-    fs.readFile(filename, 'utf-8', function(err, data) {
-        if (err) {
-            throw err
-        }
-        for ( i = 0; i < JSON.parse(data).length; i++ ) {
-            if (JSON.parse(data)[i].name == country) {
-                console.log(`Country: ${JSON.parse(data)[i].name}`)
-                console.log(`Top Level Domain: ${JSON.parse(data)[i].topLevelDomain}`)
-            }
-        }
-    })
+	FileReader: readFile
 	}
-}
-
+// module.exports makes the scope globally so you can use it in other files. In this case 'FileReader' is the key to be used in the other files and it has the value of 'readFile' (which is the function in this file). This way you can exports functions accross files. 

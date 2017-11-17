@@ -38,11 +38,21 @@
 // Country: <country name>
 // Top Level Domain: <tld>
 
+var fs = require("fs")
 var jsonfilereader = require('./json-file-reader.js')
+var country = process.argv[2]
 
-jsonfilereader.countryInfo('countries.json', process.argv[2])
+function countryInfo(countryData){
+    
+    for (var i = 0; i < countryData.length; i++) {
+        if (countryData[i].name == country){
+            console.log(`Country: ${countryData[i].name}`)
+            console.log(`Top Level Domain: ${countryData[i].topLevelDomain}`) 
+        }
+    }
+}
 
-
-
+jsonfilereader.FileReader('countries.json', countryInfo)
+// this code reads in the 'FileReader' key from the jsonfilereader.js file. The readFile function is excecuted with 'countries.json' and the cb function becomes countryInfo with the parsedData as a parameter to be used withing the countryInfo function. 
 
 
